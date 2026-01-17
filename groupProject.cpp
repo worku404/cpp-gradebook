@@ -13,5 +13,8 @@
   - yared:    UI formatting (printStudentReport + listStudents alignment, fixed precision consistency)
   - yonas: CRUD robustness (addStudent/updateMarks/deleteStudent confirmations + clearer prompts)
   - worku:    Summary/ranking (classSummaryAndRanging: cached averages, readable selection sort, correct pass rate)
+  d:    UI formatting (printStudentReport + listStudents alignment, fixed precision consistency)
+  - yonas: CRUD robustness (addStudent/updateMarks/deleteStudent confirmations + clearer prompts)
+  - worku:    Summary/ranking (classSummaryAndRanging: cached averages, readable selection sort, correct pass rate)
   Rule: main must always build; all changes go through PR review.
 */
