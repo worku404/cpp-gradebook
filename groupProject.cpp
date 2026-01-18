@@ -163,3 +163,69 @@ std::string letterGrade(double avg)
     else if (avg >= 50) return "C-";
     else return "F ";
 }
+
+
+void printStudentReport(
+    const char ids[][ID_LEN],
+    const char names[][NAME_LEN],
+    const double marks[][MAX_TESTS],
+    int studentCount,
+    int testCount)
+{
+    char id[ID_LEN];
+    readId("Enter Student ID: ", id, ID_LEN);
+    int idx = findStudentById(ids, id, studentCount);
+    if (idx == -1)
+    {
+        cout << "Student not found!\n";
+        return;
+    }
+    const double* row = marks[idx]; //add marks..
+    double total = sumRow(row, testCount); //address
+    double avg = average(row, testCount);
+
+    cout<< "\n--- Student Report ---\n\n";
+    cout<<"ID:           "<<id <<"\n";
+    cout<<"Name:         "<<names[idx] <<"\n";
+    cout<<"Marks:        "; for (int i=0; i < testCount; i++) {cout<<marks[idx][i] <<(i+1==testCount ? "" : ", "); }cout<<'\n';
+    cout<<"Total:        "<<std::fixed<<std::setprecision(2)<<total <<"\n";
+    cout<<"Minimum Mark: "<<minScore(row, testCount) <<"\n";
+    cout<<"Highest Mark: "<<maxScore(row, testCount) <<"\n";
+    cout<<"Average:      "<<std::fixed<<std::setprecision(2)<<avg <<"\n";
+    cout<<"Grade:        "<<std::left<<std::setw(5)<<letterGrade(avg) <<"\n";
+    cout<<"Status:       "; cout<<(avg>=50 ? "Pass": "Fail")<<"\n\n";
+}
+
+void listStudents(
+    const char ids[][ID_LEN],
+    const char names[][NAME_LEN],
+    const double marks[][MAX_TESTS],
+    int studentCount,
+    int testCount
+)
+{
+    if (studentCount==0) 
+    {
+        cout<<"No students yet.\n";
+        return;
+    }
+    
+    cout<<"\n-------------------- Student List -------------------\n\n";
+    cout<< std::left<<std::setw(15)<<"ID"
+        <<std::setw(20)<<"Name"
+        <<std::right<<std::setw(10)<<"Average"
+        <<std::setw(8)<<"Grade"
+        <<'\n';
+    cout<<std::string(15+10+20+8,'-')<<'\n';
+
+    for (int i=0; i<studentCount; i++)
+    {
+        double avg = average(marks[i], testCount);
+        cout<< std::left<<std::setw(15)<<ids[i]
+        <<std::setw(20)<<names[i]
+        <<std::right<<std::setw(10)<<std::fixed<<std::setprecision(2)<<avg
+        <<std::setw(8)<<letterGrade(avg)
+        <<'\n';
+    }
+    cout<<'\n';
+}
