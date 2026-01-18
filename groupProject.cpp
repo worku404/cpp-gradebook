@@ -112,3 +112,54 @@ int findStudentById(
     return -1; //stud not found!
 }
 
+// Sums all test scores in a row.
+double sumRow(const double* row, int tests)
+{
+    double total = 0;
+    for (int i=0; i<tests; i++)
+    {
+        total +=row[i];
+    }
+    return total;
+}
+
+// Finds the maximum test score in a row.
+int maxScore(const double* row, int tests)
+{
+    double mx = row[0];
+    for (int i=1; i<tests; i++)
+    {
+        if (row[i] > mx) mx=row[i];
+    }
+    return mx;
+}
+
+//Finds the minimum test score in a row.
+double minScore(const double* row, int tests)
+{
+    double mn = row[0];
+    for (int i=1; i<tests; i++)
+    {
+        if (row[i]<mn) mn = row[i];
+    }
+    return mn;
+}
+//Computes the average score for a row of test scores.
+double average(const double* row, int tests)
+{
+    return tests > 0 ? (double( sumRow(row, tests) ) / double(tests)) : 0.0;
+}
+
+//Converts a numeric average into a letter grade string.
+std::string letterGrade(double avg)
+{
+    if (avg > 90) return "A+";
+    else if (avg >= 85) return "A ";
+    else if (avg >= 80) return "A-";
+    else if (avg >= 75) return "B+";
+    else if (avg >= 70) return "B ";
+    else if (avg >= 65) return "B-";
+    else if (avg >= 60) return "C+";
+    else if (avg >= 50) return "C-";
+    else return "F ";
+}
