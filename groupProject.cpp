@@ -5,6 +5,12 @@
 #include <limits>
 #include <ctype.h>
 
+//constants 
+const int MAX_STUDENT = 50;
+const int MAX_TESTS = 8;
+const int ID_LEN = 11;
+const int NAME_LEN = 32;
+
 using std::cout;
 using std::cin;
 
@@ -90,5 +96,19 @@ void readId(std::string text, char* out, int maxsize){
         clearBadInput();
         cout<<"Invalid Input. Try again. \n";
     }
+}
+
+//performs a linear search and returns index or -1
+int findStudentById(
+    const char ids[][ID_LEN],
+    const char* id,
+    int studentCount
+)
+{
+    for(int i=0; i< studentCount; i++)
+        {
+            if (std::strcmp(ids[i], id)==0) return i;
+        }
+    return -1; //stud not found!
 }
 
