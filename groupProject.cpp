@@ -6,13 +6,110 @@
 #include <ctype.h>
 
 //constants 
-const int MAX_STUDENT = 50;
+const int MAX_STUDENT = 5;
 const int MAX_TESTS = 8;
 const int ID_LEN = 11;
 const int NAME_LEN = 32;
 
 using std::cout;
 using std::cin;
+void clearBadInput();
+double readNum(std::string text);
+double readNumRange(std::string text, int minV, int maxV);
+void readName(std::string text, char* out, int maxsize);
+void readId(std::string text, char* out, int maxsize);
+int findStudentById(
+    const char ids[][ID_LEN],
+    const char* id,
+    int studentCount
+);
+double sumRow(const double* row, int tests);
+int maxScore(const double* row, int tests);
+double minScore(const double* row, int tests);
+double average(const double* row, int tests);
+std::string letterGrade(double avg);
+void printStudentReport(
+    const char ids[][ID_LEN],
+    const char names[][NAME_LEN],
+    const double marks[][MAX_TESTS],
+    int studentCount,
+    int testCount
+);
+void listStudents(
+    const char ids[][ID_LEN],
+    const char names[][NAME_LEN],
+    const double marks[][MAX_TESTS],
+    int studentCount,
+    int testCount
+);
+void addStudent(
+    char ids[][ID_LEN],
+    char names[][NAME_LEN],
+    double marks[][MAX_TESTS],
+    int &studentCount,
+    int testCount
+);
+void updateMarks(
+    char ids[][ID_LEN],
+    char names[][NAME_LEN],
+    double marks[][MAX_TESTS],
+    int &studentCount,
+    int testCount
+);
+void deleteStudent(
+    char ids[][ID_LEN],
+    char names[][NAME_LEN],
+    double marks[][MAX_TESTS],
+    int &studentCount,
+    int testCount
+);
+void classSummaryAndRanging(
+    char ids[][ID_LEN],
+    char names[][NAME_LEN],
+    double marks[][MAX_TESTS],
+    int &studentCount,
+    int testCount
+);
+
+int main(){
+    cout<<"Student Gradebook Management System (C++)\n";
+    cout<<"-----------------------------------------\n";
+    int testCount = readNumRange("Enter the number of assessments per student (1-8): ", 1, MAX_TESTS);
+
+    char ids[MAX_STUDENT][ID_LEN]{};
+    char names[MAX_STUDENT][NAME_LEN]{};
+    double marks[MAX_STUDENT][MAX_TESTS]{};
+    int studentCount = 0;
+
+    while (true)
+    {
+        cout << "\nMenu\n";
+        cout << " 1) Add a student record\n";
+        cout << " 2) Update a student's assessment score\n";
+        cout << " 3) Generate an individual student report\n";
+        cout << " 4) Generate class summary and performance ranking\n";
+        cout << " 5) Display all student records\n";
+        cout << " 6) Delete a student record\n";
+        cout << " 0) Exit the program\n";
+
+        int choice = readNumRange("Choice: ", 0, 6);
+        if (choice==0)
+        {
+            cout<<"\nGood Bay!\n";
+            break;
+        }
+        switch (choice)
+        {
+            case 1: addStudent(ids, names, marks, studentCount, testCount); break;
+            case 2: updateMarks(ids, names, marks, studentCount, testCount); break;
+            case 3: printStudentReport(ids, names, marks, studentCount, testCount); break;
+            case 4: classSummaryAndRanging(ids, names, marks, studentCount, testCount); break;
+            case 5: listStudents(ids, names, marks, studentCount, testCount); break;
+            case 6: deleteStudent(ids, names, marks, studentCount, testCount); break;
+        }
+    }
+    return 0;
+}
 
 void clearBadInput(){
     cin.clear();
@@ -418,44 +515,4 @@ void classSummaryAndRanging(
             <<"\n";
     }
     cout<<'\n';
-}
-
-int main(){
-    cout<<"Student Gradebook Management System (C++)\n";
-    cout<<"-----------------------------------------\n";
-    int testCount = readNumRange("Enter the number of assessments per student (1-8): ", 1, MAX_TESTS);
-
-    char ids[MAX_STUDENT][ID_LEN]{};
-    char names[MAX_STUDENT][NAME_LEN]{};
-    double marks[MAX_STUDENT][MAX_TESTS]{};
-    int studentCount = 0;
-
-    while (true)
-    {
-        cout << "\nMenu\n";
-        cout << " 1) Add a student record\n";
-        cout << " 2) Update a student's assessment score\n";
-        cout << " 3) Generate an individual student report\n";
-        cout << " 4) Generate class summary and performance ranking\n";
-        cout << " 5) Display all student records\n";
-        cout << " 6) Delete a student record\n";
-        cout << " 0) Exit the program\n";
-
-        int choice = readNumRange("Choice: ", 0, 6);
-        if (choice==0)
-        {
-            cout<<"\nGood Bay!\n";
-            break;
-        }
-        switch (choice)
-        {
-            case 1: addStudent(ids, names, marks, studentCount, testCount); break;
-            case 2: updateMarks(ids, names, marks, studentCount, testCount); break;
-            case 3: printStudentReport(ids, names, marks, studentCount, testCount); break;
-            case 4: classSummaryAndRanging(ids, names, marks, studentCount, testCount); break;
-            case 5: listStudents(ids, names, marks, studentCount, testCount); break;
-            case 6: deleteStudent(ids, names, marks, studentCount, testCount); break;
-        }
-    }
-    return 0;
 }
