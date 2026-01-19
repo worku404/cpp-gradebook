@@ -146,7 +146,6 @@ If you continue this project (good portfolio upgrade), here are high-value steps
 - Use `std::vector<Student>` instead of fixed-size arrays
 - Persist data to a file (CSV/JSON) so the gradebook survives program exit
 - Improve ID rules (length, allowed characters) and ensure uniqueness reliably
-- Fix minor type consistency: `maxScore()` currently returns `int` but works with `double`
 
 These are the same refactors you’d do in industry when a prototype becomes a maintained tool.
 
